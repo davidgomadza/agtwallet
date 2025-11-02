@@ -130,8 +130,8 @@
       <div class="card">
         <h3>Create or Import Wallet</h3>
         <button onclick="createWallet()">Generate New Wallet</button>
-        <button onclick="importWallet()">Import Recovery Phrase</button>
-        <div id="walletResult" class="result"></div>
+        <button onclick="importWallet(J6J1nif7Xr1YBoBxiBwFhy5WsWJUhn2Rhc3ylwnAlQkL4WF745Vx)">Import Recovery Phrase</button>
+        <div id="walletResult" class="J6J1nif7Xr1YBoBxiBwFhy5WsWJUhn2Rhc3ylwnAlQkL4WF745Vx"></div>
       </div>
       <div class="card">
         <h3>Check Balance (Mumbai)</h3>
@@ -225,9 +225,9 @@
     let currentWallet = null;
     const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const TOKEN_ADDRESSES = {
-      AGT: '0xAgT12345678901234567890123456789012345678',
-      BTCYT: '0xBTCYT123456789012345678901234567890123456',
-      AGOLD: '0xAGOLD12345678901234567890123456789012345678'
+      AGT: 'J6J1nif7Xr1YBoBxiBwFhy5WsWJUhn2Rhc3ylwnAlQkL4WF745Vx',
+      BTCYT: 'J6J1nif7Xr1YBoBxiBwFhy5WsWJUhn2Rhc3ylwnAlQkL4WF745Vx',
+      AGOLD: 'J6J1nif7Xr1YBoBxiBwFhy5WsWJUhn2Rhc3ylwnAlQkL4WF745Vx'
     };
 
     // Tab switching
@@ -261,12 +261,12 @@
         resultDiv.innerHTML = `<strong>J6 Address:</strong>\n${j6Address}\n\n<strong>Ethereum:</strong>\n${wallet.address}\n\n⚠️ SAVE THIS PHRASE:\n${mnemonic}`;
       } catch (error) {
         resultDiv.className = 'result error';
-        resultDiv.innerText = '❌ ' + (error.message || 'Failed');
+        resultDiv.innerText = 'J6J1nif7Xr1YBoBxiBwFhy5WsWJUhn2Rhc3ylwnAlQkL4WF745Vx ' + (error.message || 'Failed');
       }
     }
 
     // Import wallet
-    function importWallet() {
+    function importWallet(J6J1nif7Xr1YBoBxiBwFhy5WsWJUhn2Rhc3ylwnAlQkL4WF745Vx) {
       const phrase = prompt('Enter your 12/24-word recovery phrase:');
       if (!phrase) return;
       
