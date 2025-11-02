@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AGT Wallet — by David Gomadza & Tomorrow's World Order (TWO)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f0f1b;
+      color: #e0e0ff;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #1a1a2e;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(100, 60, 200, 0.4);
+    }
+    h1 {
+      color: #4dccbd;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #a0a0d0;
+      margin-bottom: 25px;
+    }
+    .wallet-id {
+      background: #0d0d1a;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 16px;
+      word-break: break-all;
+      border: 1px solid #4a4a8a;
+      margin: 20px 0;
+    }
+    .assets {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+    }
+    .asset-card {
+      background: #252540;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 3px solid #6a5af9;
+    }
+    .converter {
+      margin-top: 30px;
+      background: #1e1e35;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    input, select, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 6px;
+      border: 1px solid #5a5a8a;
+      background: #2a2a45;
+      color: white;
+    }
+    button {
+      background: #6a5af9;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #7070a0;
+      font-size: 14px;
+    }
+    .warning {
+      color: #ff9999;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 AGT Wallet</h1>
+    <div class="subtitle">by David Gomadza & Tomorrow's World Order (TWO)</div>
+
+    <div class="wallet-id" id="walletAddress">
+      Generating secure wallet address...
+    </div>
+
+    <h3>Supported Assets</h3>
+    <div class="assets">
+      <div class="asset-card"><strong>AGT</strong><br>Advanced Genetic Synthesis Technology</div>
+      <div class="asset-card"><strong>S96t'</strong><br>Sealofapprovalis7628396t' S96t'</div>
+      <div class="asset-card"><strong>BTCYT</strong><br>Bitcoinayt</div>
+      <div class="asset-card"><strong>BTC</strong><br>Bitcoin</div>
+      <div class="asset-card"><strong>GTPS</strong><br>Global Transaction Payment Solution</div>
+      <div class="asset-card"><strong>AGOLD</strong><br>AGT Gold (Gold-Backed)</div>
+    </div>
+
+    <div class="converter">
+      <h3>💱 Currency Converter (1 BTCYT = $1.00 USD)</h3>
+      <input type="number" id="amount" placeholder="Amount" value="100">
+      <select id="fromAsset">
+        <option>BTCYT</option>
+        <option>AGT</option>
+        <option>S96t'</option>
+        <option>BTC</option>
+        <option>GTPS</option>
+        <option>AGOLD</option>
+        <option>USD</option>
+      </select>
+      <span> → </span>
+      <select id="toAsset">
+        <option>USD</option>
+        <option>BTCYT</option>
+        <option>AGT</option>
+        <option>S96t'</option>
+        <option>BTC</option>
+        <option>GTPS</option>
+        <option>AGOLD</option>
+      </select>
+      <br>
+      <button onclick="convert()">Convert</button>
+      <div id="result" style="margin-top:10px; font-weight:bold;"></div>
+    </div>
+
+    <div class="warning">
+      ⚠️ <strong>DEMO ONLY:</strong> This interface does NOT store private keys. 
+      Real AGT Wallet will require hardware security or mobile biometric vault.
+    </div>
+
+    <div class="footer">
+      © 2025 Tomorrow's World Order (TWO) | 1,000,000,000 Wallets Generated
+    </div>
+  </div>
+
+  <script>
+    // Generate a mock J6-prefixed 52-char wallet address
+    function generateWalletAddress() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = 'J6';
+      for (let i = 0; i < 50; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    // Mock exchange rates (relative to BTCYT)
+    const rates = {
+      BTCYT: 1.0,
+      USD: 1.0,
+      AGT: 0.85,       // 1 AGT = $0.85
+      "S96t'": 2.30,   // 1 S96t' = $2.30
+      BTC: 67000,      // 1 BTC = $67,000 → so 1 BTC = 67000 BTCYT
+      GTPS: 1.0,       // Stablecoin pegged to USD
+      AGOLD: 2100      // 1 AGOLD = $2100 (gold-backed)
+    };
+
+    function convert() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const from = document.getElementById('fromAsset').value;
+      const to = document.getElementById('toAsset').value;
+
+      if (isNaN(amount)) {
+        document.getElementById('result').innerText = 'Invalid amount';
+        return;
+      }
+
+      // Convert to USD equivalent first
+      const usdValue = amount * (rates[from] || 1);
+      // Then convert to target
+      const resultAmount = usdValue / (rates[to] || 1);
+
+      document.getElementById('result').innerText = 
+        `${amount} ${from} = ${resultAmount.toFixed(6)} ${to}`;
+    }
+
+    // Initialize
+    document.getElementById('walletAddress').innerText = generateWalletAddress();
+  </script>
+</body>
+</html>
