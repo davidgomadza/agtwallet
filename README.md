@@ -144,3 +144,19 @@ The **AGT Wallet** is a multi-asset digital wallet developed by **David Gomadza*
 
 This comprehensive wallet system provides a robust foundation for the AGT ecosystem while maintaining security, scalability, and regulatory compliance across all supported assets.
 
+/src
+  /components
+    /WalletCard.js        → Displays J6... address & balances
+    /AssetList.js         → Shows all 6 assets
+    /Converter.js         → Real-time USD converter
+  /screens
+    /HomeScreen.js        → Main dashboard
+    /SendScreen.js        → Send any asset
+    /ReceiveScreen.js     → QR code + copy address
+    /SettingsScreen.js    → Security, recovery phrase
+  /services
+    /crypto.js            → Uses react-native-crypto or native modules
+    /api.js               → Encrypted comms to backend
+  /utils
+    /addressGen.js        → Generates J6-prefixed 52-char addresses
+    /rates.js             → Fetches live conversion rates
